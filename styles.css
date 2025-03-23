@@ -1,103 +1,73 @@
-html, body
-{
-  overflow-x: hidden;
+/* Βασική μορφοποίηση για το σώμα της σελίδας */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #333;
 }
 
-/* header */
-.header-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
+/* Στυλ για το header */
+header {
+  background-color: #004080;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
 
+/* Κεντρική περιοχή περιεχομένου */
+main {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
-/*language button*/
-#languageBtn{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-gap: 7px;
-  gap: 7px;
+/* Στυλ για κάθε section */
+section {
+  margin-bottom: 30px;
   padding: 10px;
-  background-color: white;
-  border-radius: 4px;
-  color: #003375;
-  flex-wrap: nowrap;
-  width: 90px;
-  height: 50px;
-  font-size: 18px;
-  position: absolute;
-  right: 20px;
 }
 
-#evidences {
-  padding-left: 0.5rem;
-}
-
-#evidences ol {
-  list-style: none;
-  counter-reset: item;
-}
-#evidences li {
-  counter-increment: item;
-  margin-bottom: 5px;
-  font-size: 1.1em;
-}
-#evidences li:before {
-  margin-right: 10px;
-  content: counter(item);
-  background: #0065b3;
-  color: white;
-  width: 1.5rem;
-  text-align: center;
-  display: inline-block;
-}
-
-#intro-box {
-  background-color: #F0F0F0; 
-  padding: 20px; 
-  border-radius: 10px; 
+/* Στυλ για το section του Chatbot */
+#chatbot {
   text-align: center;
 }
 
-
-@media only screen and (max-width: 893px) {
-
-  #languageBtn{
-    position: relative;
-  }
-  .header-row, .govgr-header__content{
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .govgr-header__content {
-    position: relative;
-    left: 50% ;
-    transform: translateX(-50%);
-  }
+#chatbot button {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-@media only screen and (max-width: 786px) {
-  
-  .header-row,.govgr-header__content{
-    align-items: center;
-    justify-content: center;
-  }
-  .serviceTitle{
-    text-align: center;
-  }
+#chatbot button:hover {
+  background-color: #0056b3;
 }
 
+/* Στυλ για το FAQ */
+#faq ul {
+  list-style-type: none;
+  padding: 0;
+}
 
+#faq li {
+  background-color: #e9ecef;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
 
-
-
-
-
-
-
-
-
+/* Στυλ για το footer */
+footer {
+  text-align: center;
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px;
+}
