@@ -1,27 +1,32 @@
 [
-    {
-        "id": 0,
-      "question": "What documents are required for enrollment in High School?",
-      "answer": "The required documents include: the student's birth certificate, elementary school certificate, health card, and a completed enrollment application form."
-    },
-    {
-        "id": 1,
-          "question": "What is the enrollment process?",
-      "answer": "The enrollment process involves: gathering all required documents, submitting them to the school's enrollment office, verifying the student's information, and finalizing the enrollment."
-    },
-    {
-        "id": 2,
-        "question": "What is the validity period of the transportation card for the disabled ?",
-        "answer": "The card is valid from the date of issuance until December 31, 2023."
-    },
-    {
-        "id": 3,
-        "question": "Is the issuance process of the transportation card for the disabled available digitally?",
-        "answer": "No, it is not available digitally."
-    },
-    {
-        "id": 4,
-        "question": "Are there remote service points available?",
-        "answer": "Yes, there are. You can visit https://www.gov.gr/ipiresies/polites-kai-kathemerinoteta/ex-apostaseos-exuperetese-politon/exuperetese-me-telediaskepse-apo-kentro-exupereteses-politon-kep."
-    }
+  {
+    "id": 0,
+    "question": "What documents are required for enrollment in High School?",
+    "answer": "The required documents include: the student's birth certificate, elementary school certificate, health card, and a completed enrollment application form."
+  },
+  {
+    "id": 1,
+    "question": "What is the enrollment process?",
+    "answer": "The enrollment process involves: gathering all required documents, submitting them to the school's enrollment office, verifying the student's information, and finalizing the enrollment."
+  },
+  {
+    "id": 2,
+    "question": "What are the enrollment deadlines?",
+    "answer": "Enrollments are conducted from the 1st to the 30th of June, with the enrollment office operating from 08:00 to 14:00."
+  },
+  {
+    "id": 3,
+    "question": "What should I do if some documents are missing or incorrect?",
+    "answer": "In such cases, please contact the school's enrollment office immediately to receive guidance on renewing or correcting the documents."
+  },
+  {
+    "id": 4,
+    "question": "Is there an online enrollment option?",
+    "answer": "No, enrollment is carried out in person at the school's enrollment office."
+  },
+  {
+    "id": 5,
+    "question": "How can I contact for further assistance?",
+    "answer": "You can contact your school's enrollment office by phone or email, as indicated on the official website of the school."
+  }
 ]
