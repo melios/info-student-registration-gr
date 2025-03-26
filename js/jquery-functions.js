@@ -1,58 +1,47 @@
-$("document").ready(function () {
-  // --- Μεταβλητές ελέγχου / κατάστασης ---
-  var currentQuestion = 0;       // δείκτης για την τρέχουσα ερώτηση
-  var totalQuestions = 0;        // πόσες ερωτήσεις έχει το JSON
-  var allQuestions = [];         // πίνακας με όλα τα αντικείμενα ερωτήσεων
-  var userAnswers = {};          // { "indexΕρώτησης": "επιλεγμένηΑπάντηση" }
+$(document).ready(function () {
+  let currentQuestion = 0;
+  let totalQuestions = 0;
+  let allQuestions = [];
+  let userAnswers = {};
 
-  // --- Κρύβουμε τα κουμπιά χειρισμού φόρμας (αν χρειάζεται) στην αρχή ---
-  // $("#nextQuestion").hide();
-  // $("#backButton").hide();
+  // Κρύβουμε τα κουμπιά ερωτήσεων μέχρι να πατηθεί "Ας ξεκινήσουμε"
+  $("#questions-btns").hide();
+  $("#nextQuestion").hide();
+  $("#backButton").hide();
 
-  // ------------------------------------------------------
-  // 1. Συνάρτηση φόρτωσης ερωτήσεων από το JSON αρχείο
-  // ------------------------------------------------------
-  function getQuestions() {
+  // 1. Φόρτωση JSON ερωτήσεων (all-questions-school.json)
+  function loadQuestionsData() {
     return fetch("question-utils/all-questions-school.json")
       .then((response) => response.json())
       .then((data) => {
-        allQuestions = data; 
+        allQuestions = data;
         totalQuestions = data.length;
       })
       .catch((error) => {
-        console.error("Αποτυχία φόρτωσης του JSON all-questions-school.json:", error);
-        // Προβολή μηνύματος σφάλματος
-        const errorMessage = document.createElement("div");
-        errorMessage.textContent = "Σφάλμα: Δεν μπόρεσε να φορτωθεί το αρχείο των ερωτήσεων για το Γυμνάσιο.";
-        $(".question-container").html(errorMessage);
-
-        hideFormBtns();
+        console.error("Σφάλμα στη φόρτωση των ερωτήσεων:", error);
+        $(".question-container").html("<p>Αδυναμία φόρτωσης ερωτήσεων.</p>");
       });
   }
 
-  // ------------------------------------------------------
-  // 2. Συνάρτηση εμφάνισης μιας ερώτησης (loadQuestion)
-  // ------------------------------------------------------
-  function loadQuestion(questionIndex, showError) {
-    // Εμφανίζουμε τα κουμπιά (αν θες να έχεις «πισω» / «επόμενο»):
-    $("#nextQuestion").show();
-    if (questionIndex > 0) {
+  // 2. Εμφάνιση μίας ερώτησης
+  function displayQuestion(index, showError) {
+    // Αν index > 0, εμφανίζουμε το κουμπί "Πίσω"
+    if (index > 0) {
       $("#backButton").show();
     } else {
       $("#backButton").hide();
     }
 
-    // Παίρνουμε το αντικείμενο της ερώτησης
-    var questionObj = allQuestions[questionIndex];
-    var qText = questionObj.question;
-    var qInfo = questionObj.info || "";  // έξτρα κείμενο πληροφόρησης
-    var qOptions = questionObj.options;  // πίνακας απαντήσεων
+    // Λαμβάνουμε την αντίστοιχη ερώτηση
+    const qObj = allQuestions[index];
+    const qText = qObj.question;
+    const qInfo = qObj.info || "";
+    const qOptions = qObj.options;
 
-    // Φτιάχνουμε το HTML που θα εμφανίσουμε
-    var questionElement = `
+    let html = `
       <div class="govgr-field">
         <fieldset class="govgr-fieldset">
-          <legend role="heading" aria-level="1" class="govgr-fieldset__legend govgr-heading-l">
+          <legend role="heading" class="govgr-fieldset__legend govgr-heading-l">
             ${qText}
           </legend>
           <p class="govgr-hint">${qInfo}</p>
@@ -60,138 +49,132 @@ $("document").ready(function () {
             <ul>
     `;
 
-    // προσθέτουμε τις επιλογές (options)
-    qOptions.forEach((optionText, idx) => {
-      questionElement += `
+    // Δημιουργούμε τα radio options
+    qOptions.forEach((optionText, i) => {
+      html += `
         <li>
           <label class="govgr-label">
-            <input class="govgr-radios__input" type="radio" name="question-option" value="${idx}" />
+            <input type="radio" name="question-option" value="${i}" />
             ${optionText}
           </label>
         </li>
       `;
     });
 
-    questionElement += `
+    html += `
             </ul>
           </div>
         </fieldset>
       </div>
     `;
 
-    // Αν showError = true, δείχνουμε ένα μήνυμα σφάλματος (δεν επέλεξε απάντηση)
+    // Εμφάνιση μηνύματος σφάλματος αν showError = true
     if (showError) {
-      questionElement += `
-        <div class="govgr-error-message" style="color:red; margin-top:1rem;">
-          <strong>Παρακαλώ επιλέξτε μία απάντηση πριν προχωρήσετε.</strong>
+      html += `
+        <div style="color:red; margin-top:1rem;">
+          <strong>Παρακαλώ επιλέξτε μια απάντηση πριν προχωρήσετε.</strong>
         </div>
       `;
     }
 
-    // Τοποθετούμε το τελικό HTML μέσα στο container
-    $(".question-container").html(questionElement);
+    // Εισάγουμε το HTML στο container
+    $(".question-container").html(html);
 
-    // Αν ο χρήστης είχε ήδη απαντήσει νωρίτερα, επιλέγουμε το αντίστοιχο radio
-    if (userAnswers[questionIndex] !== undefined) {
-      $(`input[name="question-option"][value="${userAnswers[questionIndex]}"]`).prop("checked", true);
+    // Αν ο χρήστης είχε ήδη απαντήσει πριν
+    if (userAnswers[index] !== undefined) {
+      $(`input[name="question-option"][value="${userAnswers[index]}"]`).prop("checked", true);
     }
 
-    // Αν βρισκόμαστε στην τελευταία ερώτηση, αλλάζουμε το κείμενο του κουμπιού
-    if (questionIndex === totalQuestions - 1) {
+    // Τελευταία ερώτηση -> αλλάζουμε κουμπί σε "Υποβολή"
+    if (index === totalQuestions - 1) {
       $("#nextQuestion").text("Υποβολή");
     } else {
       $("#nextQuestion").text("Επόμενη Ερώτηση");
     }
+
+    // Εμφανίζουμε το κουμπί
+    $("#nextQuestion").show();
   }
 
-  // ------------------------------------------------------
-  // 3. Συνάρτηση εμφάνισης του τελικού αποτελέσματος
-  // ------------------------------------------------------
+  // 3. Τελικό αποτέλεσμα
   function finalizeResult() {
-    // Παράδειγμα: Σύνθεση περίληψης
-    let resultHTML = "<h3>Ολοκληρώσατε την Ενημέρωση για την Εγγραφή στο Γυμνάσιο!</h3>";
-    resultHTML += "<p>Οι επιλογές σας ήταν:</p>";
+    let resultHTML = `<h3>Ολοκληρώσατε την Ενημέρωση!</h3>`;
+    resultHTML += `<p>Οι απαντήσεις σας:</p>`;
 
+    // Παραγωγή λίστας απαντήσεων
     for (let i = 0; i < totalQuestions; i++) {
-      const qObj = allQuestions[i];
+      const questionText = allQuestions[i].question;
       const userChoiceIndex = userAnswers[i];
-      const userChoiceText = qObj.options[userChoiceIndex] || "";
-      resultHTML += `<p><strong>${qObj.question}</strong>: ${userChoiceText}</p>`;
+      const userChoice = allQuestions[i].options[userChoiceIndex] || "";
+      resultHTML += `<p><strong>${questionText}</strong> - Επιλογή: ${userChoice}</p>`;
     }
 
-    // Μπορείς να προσθέσεις έξτρα λογική, π.χ. αν userAnswers[2] === 0 -> «Έχετε παιδί με ειδικές ανάγκες»
-    // ή αν userAnswers[1] === 1 -> «Δεν γνωρίζετε τα δικαιολογητικά, δείτε το site X»
-    // κ.λπ.
+    // Ενδεικτικό: μπορούμε να βάλουμε ειδικές συνθήκες
+    // π.χ. αν userAnswers[1] = 1 => "Δεν γνωρίζεις τα δικαιολογητικά κ.λπ."
 
     resultHTML += `
       <hr>
-      <p>
-        Ανάλογα με τις απαντήσεις σας, μπορείτε να προχωρήσετε στην κατάθεση των δικαιολογητικών
-        ή να επισκεφθείτε τον επίσημο ιστότοπο <a href="https://mitos.gov.gr/" target="_blank">ΜΗΤΟΣ</a>
-        για περαιτέρω οδηγίες.
-      </p>
+      <p>Για περισσότερες πληροφορίες, δείτε το
+         <a href="https://mitos.gov.gr/" target="_blank">ΜΗΤΟΣ</a>
+         ή επικοινωνήστε με το αρμόδιο σχολείο/Διεύθυνση Δ.Ε.</p>
     `;
 
-    // Προβολή του αποτελέσματος
+    // Προβολή του αποτελέσματος & απόκρυψη κουμπιών
     $(".question-container").html(resultHTML);
-
-    // Κρύβουμε τα κουμπιά
     $("#nextQuestion").hide();
     $("#backButton").hide();
+
+    // (Προαιρετικά) μπορούμε να εμφανίσουμε το FAQ
+    // $("#faqContainer").show();
   }
 
-  // ------------------------------------------------------
-  // 4. Συνάρτηση διαχείρισης των κουμπιών
-  // ------------------------------------------------------
+  // 4. nextQuestion κλικ
   $("#nextQuestion").click(function () {
-    // Έλεγχος αν ο χρήστης επέλεξε μια απάντηση
-    var selectedRadio = $('input[name="question-option"]:checked').val();
-    if (selectedRadio === undefined) {
-      // Δεν επελέγη απάντηση => δείξε σφάλμα
-      loadQuestion(currentQuestion, true);
+    const selectedVal = $('input[name="question-option"]:checked').val();
+    if (selectedVal === undefined) {
+      // δεν επέλεξε απάντηση
+      displayQuestion(currentQuestion, true);
       return;
     }
 
-    // Αποθήκευση της απάντησης
-    userAnswers[currentQuestion] = parseInt(selectedRadio);
+    // αποθήκευση απάντησης
+    userAnswers[currentQuestion] = parseInt(selectedVal);
 
-    // Αν βρισκόμαστε στην τελευταία ερώτηση, επιδεικνύουμε το τελικό αποτέλεσμα
+    // αν είμαστε στην τελευταία ερώτηση -> finalize
     if (currentQuestion === totalQuestions - 1) {
       finalizeResult();
       return;
     }
 
-    // Αλλιώς περνάμε στην επόμενη ερώτηση
+    // αλλιώς επόμενη ερώτηση
     currentQuestion++;
-    loadQuestion(currentQuestion, false);
+    displayQuestion(currentQuestion, false);
   });
 
+  // 5. backButton κλικ
   $("#backButton").click(function () {
     if (currentQuestion > 0) {
       currentQuestion--;
-      loadQuestion(currentQuestion, false);
+      displayQuestion(currentQuestion, false);
     }
   });
 
-  // ------------------------------------------------------
-  // 5. Βοηθητική συνάρτηση για να κρύβουμε τα κουμπιά, αν χρειαστεί
-  // ------------------------------------------------------
-  function hideFormBtns() {
-    $("#nextQuestion").hide();
-    $("#backButton").hide();
-  }
+  // 6. Κουμπί "Ας ξεκινήσουμε"
+  $("#startBtn").click(function () {
+    // Κρύβουμε εισαγωγή
+    $("#intro").hide();
+    // Εμφανίζουμε το κουτί ερωτήσεων
+    $("#questions-btns").show();
 
-  // ------------------------------------------------------
-  // 6. Έναρξη της ροής - Φόρτωση ερωτήσεων και εμφάνιση 1ης
-  // ------------------------------------------------------
-  getQuestions().then(() => {
-    // Μόλις φορτωθούν επιτυχώς οι ερωτήσεις:
+    // Ξεκινάμε το ερωτηματολόγιο
     currentQuestion = 0;
-    if (totalQuestions > 0) {
-      loadQuestion(currentQuestion, false);
-    } else {
-      $(".question-container").html("<p>Δεν υπάρχουν ερωτήσεις διαθέσιμες.</p>");
-      hideFormBtns();
-    }
+    // Αν δεν έχουμε φορτώσει ήδη τις ερωτήσεις, τις φορτώνουμε
+    loadQuestionsData().then(() => {
+      if (totalQuestions > 0) {
+        displayQuestion(currentQuestion, false);
+      } else {
+        $(".question-container").html("<p>Δεν υπάρχουν διαθέσιμες ερωτήσεις.</p>");
+      }
+    });
   });
 });
