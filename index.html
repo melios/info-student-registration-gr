@@ -1,155 +1,149 @@
 <!DOCTYPE html>
 <html lang="el">
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title class="language-component" data-component="mainTitle">Εγγραφή στο Γυμνάσιο</title>
+  <title class="language-component" data-component="mainTitle">Εγγραφή μαθητών στο Γυμνάσιο</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.css" rel="stylesheet" crossorigin="anonymous" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="@digigov-css_v0.31.0/digigov.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="@digigov-css_v0.31.0/digigov.css" />
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    
-    <!-- Εδώ φορτώνουμε το δικό μας JS που θα κάνει όλη τη δουλειά -->
-    <script type="text/javascript" src="js/jquery-functions.js"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <!-- Το δικό μας script που θα κάνει όλη την ροή -->
+  <script type="text/javascript" src="js/jquery-functions.js"></script>
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header class="govgr-header">
-        <div class="govgr-header__container">
-            <div class="govgr-header__content">
-                <div class="header-row">
-                    <a href="#" id="logo-link" title="link-to-homepage" aria-label="Link to homepage">
-                        <!-- Αν θες, διατηρείς το logo SVG ή το αντικαθιστάς -->
-                        <svg class="govgr-header-logo" ... >
-                            <!-- Logo paths -->
-                        </svg>
-                    </a>
-                    <div class="govgr-header-title language-component serviceTitle"
-                         data-component="pageTitle"
-                         role="heading" tabindex="1">
-                        Εγγραφή μαθητών στο Γυμνάσιο
-                    </div>
-                </div>
-                <!-- Language switch button (προαιρετικό) -->
-                <button id="languageBtn" type="button">
-                    <svg id="svg-language-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" role="presentation">
-                        <!-- Icon Paths -->
-                    </svg>
-                    <span class="language-component" data-component="languageBtn">EL</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <div class="mask" id="mask-up"></div>
-    <div class="mask" id="mask-bottom"></div>
-
-    <!-- MAIN CONTAINER -->
-    <div class="govgr-width-container" id="content">
-        <div class="govgr-main-wrapper">
-            <div class="govgr-grid-column-two-thirds">
-                <h1 class="govgr-heading-xl language-component" data-component="infoTitle" tabindex="3">
-                    Πληροφορίες για την Εγγραφή στο Γυμνάσιο
-                </h1>
-            </div>
-        </div>
-
-        <!-- Εισαγωγικό κείμενο -->
-        <div id="intro">
-            <p class="govgr-body" id="intro-box" tabindex="4">
-                <strong data-component="subTitle1" class="language-component">
-                    Αυτό το διαδραστικό ερωτηματολόγιο θα σας βοηθήσει να μάθετε τα βήματα για την εγγραφή του παιδιού σας στο Γυμνάσιο.
-                </strong><br /><br />
-                <span data-component="subTitle2" class="language-component">
-                    Η συμπλήρωσή του δεν απαιτεί πάνω από 10 λεπτά.
-                </span><br /><br />
-                <em data-component="subTitle3" class="language-component">
-                    Δεν αποθηκεύουμε ούτε κοινοποιούμε τις απαντήσεις σας.
-                </em>
-            </p>
-            <!-- Κουμπί έναρξης -->
-            <button class="govgr-btn govgr-btn-primary govgr-btn-cta" id="startBtn" tabindex="5">
-                <span class="language-component" data-component="startBtn">Ας ξεκινήσουμε</span>
-                <svg viewBox="0 0 24 24" class="govgr-arrow--right" focusable="false" aria-hidden="true">
-                    <path d="M8.5,2L6.1,4.3l7.6,7.7l-7.6,7.6L8.5,22l10-10L8.5,2z" />
-                </svg>
-            </button>
-        </div>
-
-        <!-- Link "Πίσω" (για ερωτήσεις) -->
-        <a href="#" class="govgr-back-link" id="backButton" style="display: none" tabindex="6">
-            <svg class="govgr-caret--left" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18,22V2L6,12L18,22z" />
+  <!-- HEADER -->
+  <header class="govgr-header">
+    <div class="govgr-header__container">
+      <div class="govgr-header__content">
+        <div class="header-row">
+          <a href="#" id="logo-link" title="link-to-homepage" aria-label="Link to homepage">
+            <!-- Προαιρετικά λογότυπα / SVG -->
+            <svg class="govgr-header-logo" width="100" height="50" ... >
+              <!-- Logo paths εδώ -->
             </svg>
-            <span class="language-component" data-component="backButton">Πίσω</span>
-        </a>
-
-        <!-- Container για τις ερωτήσεις & το κουμπί "επόμενο" -->
-        <div id="questions-btns">
-            <div class="question-container" tabindex="7">
-                <!-- Μέσα από το jquery-functions.js φορτώνουμε εδώ τη 1η ερώτηση -->
-            </div>
-            <!-- Κουμπί "επόμενη ερώτηση" ή "υποβολή" -->
-            <button class="govgr-btn govgr-btn-primary govgr-btn-cta" id="nextQuestion" style="display: none;">
-                <span class="language-component" data-component="nextQuestion" tabindex="8">
-                    Επόμενη ερώτηση
-                </span>
-                <svg viewBox="0 0 24 24" class="govgr-arrow--right" focusable="false" aria-hidden="true">
-                    <path d="M8.5,2L6.1,4.3l7.6,7.7l-7.6,7.6L8.5,22l10-10L8.5,2z" />
-                </svg>
-            </button>
+          </a>
+          <div class="govgr-header-title language-component serviceTitle" data-component="pageTitle" role="heading" tabindex="1">
+            Εγγραφή στο Γυμνάσιο
+          </div>
         </div>
+        <!-- Language switch button (αν το χρησιμοποιείς) -->
+        <button id="languageBtn" type="button">
+          <svg id="svg-language-icon" width="24" height="24" ... > <!-- Icon paths --> </svg>
+          <span class="language-component" data-component="languageBtn">EL</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="govgr-width-container" id="content">
+    <div class="govgr-main-wrapper">
+      <div class="govgr-grid-column-two-thirds">
+        <h1 class="govgr-heading-xl language-component" data-component="infoTitle" tabindex="3">
+          Ενημερωτικό ερωτηματολόγιο για την εγγραφή στο Γυμνάσιο
+        </h1>
+      </div>
     </div>
 
-    <!-- FAQ αν χρειάζεσαι -->
-    <br /><br />
-    <div id="faqContainer" class="govgr-accordion govgr-width-container faqContainer" style="display: none;">
-        <!-- Αν θες να φορτώνεις συχνές ερωτήσεις (faq.json) -->
+    <!-- Εισαγωγή -->
+    <div id="intro">
+      <p class="govgr-body" id="intro-box" tabindex="4">
+        <strong data-component="subTitle1" class="language-component">
+          Αυτό το σύντομο ερωτηματολόγιο θα σας βοηθήσει να μάθετε τα βασικά βήματα για την εγγραφή του παιδιού σας στο Γυμνάσιο.
+        </strong><br><br>
+        <span data-component="subTitle2" class="language-component">
+          Η συμπλήρωσή του δεν απαιτεί πάνω από 10 λεπτά.
+        </span><br><br>
+        <em data-component="subTitle3" class="language-component">
+          Δεν αποθηκεύουμε ούτε κοινοποιούμε τις απαντήσεις σας.
+        </em>
+      </p>
+      <!-- Κουμπί έναρξης -->
+      <button class="govgr-btn govgr-btn-primary govgr-btn-cta" id="startBtn" tabindex="5">
+        <span class="language-component" data-component="startBtn">Ας ξεκινήσουμε</span>
+        <svg viewBox="0 0 24 24" class="govgr-arrow--right" focusable="false" aria-hidden="true">
+          <path d="M8.5,2L6.1,4.3l7.6,7.7l-7.6,7.6L8.5,22l10-10L8.5,2z" />
+        </svg>
+      </button>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="govgr-footer" role="contentinfo">
-        <div class="govgr-width-container">
-            <div class="govgr-footer__meta">
-                <div class="govgr-footer__meta-item govgr-footer__meta-item--grow">
-                    <div class="govgr-footer__content">
-                        <p class="govgr-footer__licence-description" id="footerData">
-                            <span tabindex="19" class="language-component" data-component="footerText">
-                                Υλοποίηση για την ανάγκη παρουσίασης καθοδηγούμενων διαδικασιών εγγραφής στο Γυμνάσιο.
-                            </span>
-                            <!-- Τα ονόματα/links σου -->
-                        </p>
-                    </div>
-                </div>
-                <div class="govgr-footer__meta-item">
-                    <!-- κυβερνητικά λογότυπα κλπ αν θες -->
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Εδώ θα μπουν οι ερωτήσεις -->
+    <div id="questions-btns" style="display: none;">
+      <!-- Link "Πίσω" -->
+      <a href="#" class="govgr-back-link" id="backButton" style="display: none" tabindex="6">
+        <svg class="govgr-caret--left" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18,22V2L6,12L18,22z" />
+        </svg>
+        <span class="language-component" data-component="backButton">Πίσω</span>
+      </a>
 
-    <!-- Αλλά scripts (π.χ. change-language-functions.js) -->
-    <script type="text/javascript" src="js/change-language-functions.js"></script>
-    <script>
-        // Παράδειγμα: To λογότυπο κάνε reload σε click
-        const logoLink = document.getElementById("logo-link");
-        logoLink.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent the default link behavior 
-            location.reload(); // Reload the page
-        });
-    </script>
+      <!-- Container των ερωτήσεων -->
+      <div class="question-container" tabindex="7">
+        <!-- Φορτώνεται δυναμικά με JS -->
+      </div>
+
+      <!-- Κουμπί "επόμενη" ή "υποβολή" -->
+      <button class="govgr-btn govgr-btn-primary govgr-btn-cta" id="nextQuestion" style="display: none;">
+        <span class="language-component" data-component="nextQuestion" tabindex="8">
+          Επόμενη ερώτηση
+        </span>
+        <svg viewBox="0 0 24 24" class="govgr-arrow--right" focusable="false" aria-hidden="true">
+          <path d="M8.5,2L6.1,4.3l7.6,7.7l-7.6,7.6L8.5,22l10-10L8.5,2z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- FAQ αν το θες -->
+  <br><br>
+  <div id="faqContainer" class="govgr-accordion govgr-width-container faqContainer" style="display: none;">
+    <!-- Αν θες να φορτώνεις συχνές ερωτήσεις από faq.json -->
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="govgr-footer" role="contentinfo">
+    <div class="govgr-width-container">
+      <div class="govgr-footer__meta">
+        <div class="govgr-footer__meta-item govgr-footer__meta-item--grow">
+          <div class="govgr-footer__content">
+            <p class="govgr-footer__licence-description" id="footerData">
+              <span tabindex="19" class="language-component" data-component="footerText">
+                Παράδειγμα εφαρμογής για διαδραστική ενημέρωση εγγραφής στο Γυμνάσιο.
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="govgr-footer__meta-item">
+          <!-- εικονίδια / λογότυπα προαιρετικά -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Αλλά scripts (π.χ. change-language-functions.js) -->
+  <script type="text/javascript" src="js/change-language-functions.js"></script>
+
+  <script>
+    // Κάνε reload όταν κλικάρεις το λογότυπο (προαιρετικό)
+    const logoLink = document.getElementById("logo-link");
+    logoLink.addEventListener("click", function (event) {
+      event.preventDefault(); 
+      location.reload();
+    });
+  </script>
 </body>
 </html>
